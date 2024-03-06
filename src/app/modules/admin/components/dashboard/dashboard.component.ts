@@ -11,9 +11,9 @@ import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import { Table, TableModule } from 'primeng/table';
 import { Subscription, debounceTime } from 'rxjs';
-import { Product } from '../../shared/models/product.model';
-import { LayoutService } from '../../shared/services/app.layout.service';
-import { ProductService } from '../../shared/services/product.service';
+import { Product } from '../../../../shared/models/product.model';
+import { LayoutService } from '../../../../shared/services/app.layout.service';
+import { ProductService } from '../../../../shared/services/product.service';
 
 @Component({
   templateUrl: './dashboard.component.html',

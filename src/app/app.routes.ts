@@ -1,5 +1,7 @@
+import { LoadedComponent } from '@Types/general.types';
 import { Routes } from '@angular/router';
 import {
+  AdminRoutes,
   AppRoutes,
   AuthRoutes,
   ModuleRoutes,
@@ -7,6 +9,19 @@ import {
 import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
 
 export const routes: Routes = [
+  {
+    path: ModuleRoutes.Admin,
+    // canActivate: [AdminGuard],
+    children: [
+      {
+        path: AdminRoutes.Dashboard,
+        loadComponent: () =>
+          import(
+            '@Modules/admin/components/dashboard/dashboard.component'
+          ).then((m: LoadedComponent) => m.DashboardComponent),
+      },
+    ],
+  },
   {
     path: AppRoutes.Empty,
     pathMatch: 'full',

@@ -6,8 +6,7 @@ export enum AppRoutes {
 
 export enum ModuleRoutes {
   Auth = 'auth',
-  Dashboard = 'dashboard',
-  Profile = 'profile',
+  Admin = 'admin',
 }
 
 export enum AuthRoutes {
@@ -15,4 +14,8 @@ export enum AuthRoutes {
   Register = 'register',
   ResetPassword = 'reset-password',
   VerifyEmail = 'verify-email',
+}
+
+export enum AdminRoutes {
+  Dashboard = 'dashboard',
 }
