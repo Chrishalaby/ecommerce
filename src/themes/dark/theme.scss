@@ -1,0 +1,15 @@
+$primaryColor: #2dd4bf !default;
+$primaryLightColor: #5eead4 !default;
+$primaryLighterColor: #99f6e4 !default;
+$primaryLightestColor: rgba(45, 212, 191, .2) !default;
+$primaryTextColor: #030712 !default;
+
+$highlightBg:rgba(45, 212, 191, .16) !default;
+$highlightTextColor: rgba(255,255,255,.87) !default;
+$highlightFocusBg: rgba($primaryColor, .24) !default;
+
+@import 'variables';
+@import '../fonts/fonts';
+@import '../../styles/primeng/theme-base/components';
+@import 'extensions';
+@import '../../styles/primeng/extensions';
