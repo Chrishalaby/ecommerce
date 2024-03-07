@@ -1,0 +1,14 @@
+.language-select {
+    .p-dropdown-trigger {
+        width: 0;
+        display: none;
+    }
+
+    .p-dropdown-panel {
+        .p-dropdown-items {
+            .p-dropdown-item {
+                padding: 0.75rem 0;
+            }
+        }
+    }
+}

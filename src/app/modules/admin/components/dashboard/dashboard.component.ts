@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -27,7 +26,7 @@ import { ProductService } from '../../../../shared/services/product.service';
     TableModule,
     InputTextModule,
     InputTextareaModule,
-    ChartModule,
+    // ChartModule,
     RatingModule,
     KnobModule,
   ],

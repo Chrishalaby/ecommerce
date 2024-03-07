@@ -1,0 +1,20 @@
+@import '_variables';
+@import 'general/flags.scss';
+
+* {
+  // sass-lint:disable-line no-universal-selectors
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+body {
+  margin: 0;
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
