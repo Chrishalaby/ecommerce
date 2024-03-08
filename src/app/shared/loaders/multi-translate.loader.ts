@@ -9,20 +9,7 @@ interface TranslateResourceInterface {
 }
 
 export class MultiTranslateLoader implements TranslateLoader {
-  private readonly translationFiles: string[] = [
-    'app',
-    'shared',
-    'auth',
-    'grade',
-    'contract',
-    'ethnicity',
-    'status',
-    'gender',
-    'location',
-    'legal-entity',
-    'business-unit',
-    'functional-area',
-  ];
+  private readonly translationFiles: string[] = ['new-product'];
 
   public constructor(private readonly httpClient: HttpClient) {}
 
@@ -32,21 +19,23 @@ export class MultiTranslateLoader implements TranslateLoader {
       (translationFile: string): TranslateResourceInterface => ({
         prefix: `${basePath}/${translationFile}/`,
         suffix: '.json',
-      }),
+      })
     );
 
     return forkJoin(
       resources.map(
         (config: TranslateResourceInterface): Observable<object[]> =>
-          this.httpClient.get<object[]>(`${config.prefix}${lang}${config.suffix}`),
-      ),
+          this.httpClient.get<object[]>(
+            `${config.prefix}${lang}${config.suffix}`
+          )
+      )
     ).pipe(
       map((response: object[]): object =>
         response.reduce((sum: object, nextPart: object): object => ({
           ...sum,
           ...nextPart,
-        })),
-      ),
+        }))
+      )
     );
   }
 }

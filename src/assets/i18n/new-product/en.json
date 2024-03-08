@@ -1,0 +1,17 @@
+{
+  "NEW_PRODUCT": {
+    "CREATE": {
+      "TITLE": "Create Product",
+      "NAME": "Product Name",
+      "PRICE": "Price",
+      "CODE": "Product Code",
+      "SKU": "Product SKU",
+      "DESCRIPTION": "Description",
+      "UPLOAD_IMAGE": "Drop or select images",
+      "TAGS": "Tags",
+      "CATEGORY": "Category",
+      "COLOR": "Color",
+      "STOCK": "Stock"
+    }
+  }
+}
