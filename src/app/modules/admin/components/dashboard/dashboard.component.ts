@@ -58,7 +58,7 @@ export class DashboardComponent {
   ) {
     this.subscription = this.layoutService.configUpdate$
       .pipe(debounceTime(25))
-      .subscribe((config) => {
+      .subscribe(() => {
         this.initCharts();
       });
   }
@@ -85,9 +85,9 @@ export class DashboardComponent {
 
     this.selectedWeek = this.weeks[0];
     this.initCharts();
-    this.productService
-      .getProductsSmall()
-      .then((data: any) => (this.products = data));
+    // this.productService
+    //   .getProductsSmall()
+    //   .then((data: any) => (this.products = data));
 
     this.cols = [
       { header: 'Name', field: 'name' },

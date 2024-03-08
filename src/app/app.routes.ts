@@ -6,7 +6,6 @@ import {
   AuthRoutes,
   ModuleRoutes,
 } from './shared/enums/routes.enum';
-import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +19,13 @@ export const routes: Routes = [
             '@Modules/admin/components/dashboard/dashboard.component'
           ).then((m: LoadedComponent) => m.DashboardComponent),
       },
+      {
+        path: AdminRoutes.NewProduct,
+        loadComponent: () =>
+          import(
+            '@Modules/admin/components/new-product/new-product.component'
+          ).then((m: LoadedComponent) => m.NewProductComponent),
+      },
     ],
   },
   {
@@ -31,8 +37,8 @@ export const routes: Routes = [
     path: AppRoutes.Other,
     redirectTo: AppRoutes.NotFound,
   },
-  {
-    path: AppRoutes.NotFound,
-    component: NotFoundComponent,
-  },
+  // {
+  //   path: AppRoutes.NotFound,
+  //   component: NotFoundComponent,
+  // },
 ];

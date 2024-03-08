@@ -18,4 +18,5 @@ export enum AuthRoutes {
 
 export enum AdminRoutes {
   Dashboard = 'dashboard',
+  NewProduct = 'new-product',
 }
