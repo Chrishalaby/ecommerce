@@ -9,8 +9,7 @@
           <input
             pInputText
             type="text"
-            placeholder="Product Name"
-            label="Product Name"
+            placeholder="{{ 'NEW_PRODUCT.CREATE.NAME' | translate }}"
             formControlName="name"
           />
         </div>
@@ -18,8 +17,7 @@
           <input
             pInputText
             type="text"
-            placeholder="Price"
-            label="Price"
+            placeholder="{{ 'NEW_PRODUCT.CREATE.PRICE' | translate }}"
             formControlName="price"
           />
         </div>
@@ -27,8 +25,7 @@
           <input
             pInputText
             type="text"
-            placeholder="Product Code"
-            label="Product Code"
+            placeholder="{{ 'NEW_PRODUCT.CREATE.CODE' | translate }}"
             formControlName="code"
           />
         </div>
@@ -36,8 +33,7 @@
           <input
             pInputText
             type="text"
-            placeholder="Product SKU"
-            label="SKU"
+            placeholder="{{ 'NEW_PRODUCT.CREATE.SKU' | translate }}"
             formControlName="sku"
           />
         </div>
@@ -49,7 +45,7 @@
           <textarea
             [style]="{ height: '250px', width: '100%' }"
             pInputTextarea
-            placeholder="Description"
+            placeholder="{{ 'NEW_PRODUCT.CREATE.DESCRIPTION' | translate }}"
             formControlName="description"
           ></textarea>
         </div>
@@ -79,9 +75,9 @@
                   class="flex flex-column w-full h-full justify-content-center align-items-center"
                 >
                   <i class="pi pi-file text-4xl text-primary"></i>
-                  <span class="block font-semibold text-900 text-lg mt-3"
-                    >Drop or select images</span
-                  >
+                  <span class="block font-semibold text-900 text-lg mt-3">
+                    {{ "NEW_PRODUCT.CREATE.UPLOAD_IMAGE" | translate }}
+                  </span>
                 </div>
                 <div
                   class="flex flex-wrap gap-3 border-round"
@@ -123,7 +119,7 @@
       <button
         type="button"
         pButton
-        label="Add Attribute"
+        label="{{ 'NEW_PRODUCT.CREATE.ADD_ATTRIBUTE' | translate }}"
         (click)="addAttribute()"
         class="p-button-text mb-1"
       ></button>
@@ -134,8 +130,9 @@
         >
           <span
             class="text-900 font-bold block border-bottom-1 surface-border p-3"
-            >Attributes</span
           >
+            {{ "NEW_PRODUCT.CREATE.ATTRIBUTES" | translate }}
+          </span>
 
           <div
             *ngFor="let attribute of attributes().controls; let i = index"
@@ -146,7 +143,9 @@
               class="col-12 md:col-11"
               [options]="attributeOptions"
               formControlName="key"
-              placeholder="Select an attribute"
+              placeholder="{{
+                'NEW_PRODUCT.CREATE.SELECT_ATTRIBUTE' | translate
+              }}"
               [showClear]="true"
             ></p-dropdown>
             <p-button
@@ -159,7 +158,7 @@
               class="col-12 md:col-11"
               [options]="getValuesOptions(i)"
               formControlName="values"
-              defaultLabel="Select values"
+              defaultLabel="{{ 'NEW_PRODUCT.CREATE.SELECT_VALUE' | translate }}"
               [showClear]="true"
             ></p-multiSelect>
             <p-button
@@ -174,7 +173,9 @@
       <div
         class="border-1 surface-border flex justify-content-between align-items-center py-2 px-3 border-round"
       >
-        <span class="text-900 font-bold p-3">In stock</span>
+        <span class="text-900 font-bold p-3">{{
+          "NEW_PRODUCT.CREATE.INSTOCK" | translate
+        }}</span>
         <p-inputSwitch formControlName="inStock"></p-inputSwitch>
       </div>
 
@@ -185,15 +186,16 @@
           pButton
           pRipple
           class="p-button-danger flex-1 p-button-outlined"
-          label="Discard"
+          label="{{ 'NEW_PRODUCT.CREATE.DISCARD' | translate }}"
           icon="pi pi-fw pi-trash"
         ></button>
         <button
           pButton
           pRipple
           class="p-button-primary flex-1 border-round"
-          label="Save"
+          label="{{ 'NEW_PRODUCT.CREATE.SAVE' | translate }}"
           icon="pi pi-fw pi-check"
+          (click)="onSubmit()"
         ></button>
       </div>
     </div>
@@ -201,40 +203,44 @@
 </div>
 
 <p-dialog
-  header="Add New Value"
+  header="{{ 'NEW_PRODUCT.NEW_VALUE.TITLE' | translate }}"
   [(visible)]="displayValueDialog"
   [modal]="true"
   [style]="{ width: '50vw' }"
 >
   <div class="field">
-    <label for="newValue">New Value:</label>
+    <label for="newValue"
+      >{{ "NEW_PRODUCT.NEW_VALUE.NAME" | translate }}:</label
+    >
     <input id="newValue" type="text" pInputText [(ngModel)]="newValue" />
   </div>
   <p-footer>
     <button
       type="button"
       pButton
-      label="Add"
+      label="{{ 'NEW_PRODUCT.NEW_VALUE.ADD' | translate }}"
       (click)="addNewValue(currentAttributeIndex)"
     ></button>
   </p-footer>
 </p-dialog>
 
 <p-dialog
-  header="Add New Attribute"
+  header="{{ 'NEW_PRODUCT.NEW_ATTRIBUTE.TITLE' | translate }}"
   [(visible)]="displayAttributeDialog"
   [modal]="true"
   [style]="{ width: '50vw' }"
 >
   <div class="field">
-    <label for="newValue">New Attribute:</label>
+    <label for="newValue"
+      >{{ "NEW_PRODUCT.NEW_ATTRIBUTE.NAME" | translate }}:</label
+    >
     <input id="newValue" type="text" pInputText [(ngModel)]="newAttribute" />
   </div>
   <p-footer>
     <button
       type="button"
       pButton
-      label="Add"
+      label="{{ 'NEW_PRODUCT.NEW_ATTRIBUTE.ADD' | translate }}"
       (click)="addNewAttribute()"
     ></button>
   </p-footer>

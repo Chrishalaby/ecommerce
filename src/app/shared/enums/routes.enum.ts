@@ -7,6 +7,7 @@ export enum AppRoutes {
 export enum ModuleRoutes {
   Auth = 'auth',
   Admin = 'admin',
+  Products = 'products',
 }
 
 export enum AuthRoutes {

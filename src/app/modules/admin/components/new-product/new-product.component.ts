@@ -1,4 +1,8 @@
-import { Attribute, Image } from '@Models/product.model';
+import { FieldNames } from '@Enums/fields.enum';
+import {
+  Attribute,
+  Image,
+} from '@Modules/admin/components/new-product/shared/product.model';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -26,6 +30,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
+import { ProductFacade } from './store/product.facade';
 
 @Component({
   selector: 'app-new-product',
@@ -76,21 +81,29 @@ export class NewProductComponent implements OnInit {
 
   displayAttributeDialog: boolean = false;
 
-  constructor(private fb: FormBuilder, private translate: TranslateService) {
+  constructor(
+    private readonly fb: FormBuilder,
+    private translate: TranslateService,
+    private readonly productFacade: ProductFacade
+  ) {
     translate.setDefaultLang('en');
     translate.use('en');
   }
 
   ngOnInit(): void {
-    this.productForm = this.fb.group({
-      name: [''],
-      price: [0],
-      code: [''],
-      sku: [''],
-      inStock: [true],
-      description: [''],
-      images: this.fb.array([]),
-      attributes: this.fb.array([]),
+    this.productForm = this.initializeForm();
+  }
+
+  initializeForm(): FormGroup {
+    return this.fb.group({
+      [FieldNames.Name]: [''],
+      [FieldNames.Price]: [null],
+      [FieldNames.Code]: [''],
+      [FieldNames.Sku]: [''],
+      [FieldNames.InStock]: [true],
+      [FieldNames.Description]: [''],
+      [FieldNames.Images]: this.fb.array([]),
+      [FieldNames.Attributes]: this.fb.array([]),
     });
   }
 
@@ -150,10 +163,6 @@ export class NewProductComponent implements OnInit {
     this.displayAttributeDialog = true;
   }
 
-  saveProduct(): void {
-    console.log(this.productForm.value);
-  }
-
   onUpload(event: any) {
     for (let file of event.files) {
       this.images.push(file);
@@ -178,5 +187,9 @@ export class NewProductComponent implements OnInit {
 
   removeImage(file: Image) {
     this.images = this.images.filter((i) => i !== file);
+  }
+
+  onSubmit(): void {
+    this.productFacade.postProduct(this.productForm.value);
   }
 }

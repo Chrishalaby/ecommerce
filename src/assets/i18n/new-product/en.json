@@ -8,10 +8,23 @@
       "SKU": "Product SKU",
       "DESCRIPTION": "Description",
       "UPLOAD_IMAGE": "Drop or select images",
-      "TAGS": "Tags",
-      "CATEGORY": "Category",
-      "COLOR": "Color",
-      "STOCK": "Stock"
+      "INSTOCK": "In Stock",
+      "SAVE": "Save",
+      "DISCARD": "Discard",
+      "ADD_ATTRIBUTE": "Add Attribute",
+      "ATTRIBUTES": "Attributes",
+      "SELECT_ATTRIBUTE": "Select Attribute",
+      "SELECT_VALUE": "Select Value"
+    },
+    "NEW_VALUE": {
+      "TITLE": "New Value",
+      "NAME": "Value Name",
+      "ADD": "Add"
+    },
+    "NEW_ATTRIBUTE": {
+      "TITLE": "New Attribute",
+      "NAME": "Attribute Name",
+      "ADD": "Add"
     }
   }
 }
