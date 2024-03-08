@@ -7,7 +7,7 @@ import { ProductState } from './product.state';
 
 export const productInitialState: ProductState = {
   product: null,
-  productes: [],
+  products: [],
   productPending: false,
 };
 
@@ -18,7 +18,7 @@ export const productFeature = createFeature({
     on(
       ProductActions.postProduct,
       ProductActions.getProduct,
-      ProductActions.getProductes,
+      ProductActions.getProducts,
       ProductActions.patchProduct,
       ProductActions.deleteProduct,
       (state: ProductState): ProductState => ({
@@ -46,14 +46,14 @@ export const productFeature = createFeature({
       })
     ),
     on(
-      ProductActions.getProductesSuccess,
+      ProductActions.getProductsSuccess,
       (
         state: ProductState,
-        { productes }: TypedActionProps<string, { productes: Product[] }>
+        { products }: TypedActionProps<string, { products: Product[] }>
       ): ProductState => ({
         ...state,
         productPending: false,
-        productes,
+        products,
       })
     ),
     on(
@@ -64,7 +64,7 @@ export const productFeature = createFeature({
       ): ProductState => ({
         ...state,
         productPending: false,
-        productes: state.productes.filter(
+        products: state.products.filter(
           (product: Product) => id !== product.id
         ),
       })
@@ -77,6 +77,6 @@ export const {
   reducer,
   selectProductState,
   selectProduct,
-  selectProductes,
+  selectProducts,
   selectProductPending,
 } = productFeature;

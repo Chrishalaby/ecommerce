@@ -7,8 +7,8 @@ import { Product } from '@Modules/admin/components/new-product/shared/product.mo
 import { ProductActions } from './product.actions';
 import {
   selectProduct,
-  selectProductes,
   selectProductPending,
+  selectProducts,
 } from './product.reducer';
 
 @Injectable({ providedIn: 'root' })
@@ -19,14 +19,14 @@ export class ProductFacade {
   public selectProduct$: Observable<Product | null> = this.store.pipe(
     select(selectProduct)
   );
-  public selectProductes$: Observable<Product[]> = this.store.pipe(
-    select(selectProductes)
+  public selectProducts$: Observable<Product[]> = this.store.pipe(
+    select(selectProducts)
   );
 
   constructor(private readonly store: Store<Product>) {}
 
-  public getProductes(listOptionsProps: ListOptionsProps): void {
-    this.store.dispatch(ProductActions.getProductes({ ...listOptionsProps }));
+  public getProducts(listOptionsProps: ListOptionsProps): void {
+    this.store.dispatch(ProductActions.getProducts({ ...listOptionsProps }));
   }
 
   public getProduct(id: number): void {

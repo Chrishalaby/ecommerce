@@ -26,5 +26,5 @@ export interface GetProductSuccessProps {
 }
 
 export interface GetProductListSuccessProps {
-  productes: Product[];
+  products: Product[];
 }

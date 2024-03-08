@@ -16,8 +16,8 @@ export const ProductActions = createActionGroup({
   events: {
     'Get Product': props<GetProductProps>(),
     'Get Product Success': props<GetProductSuccessProps>(),
-    'Get Productes': props<ListOptionsProps>(),
-    'Get Productes Success': props<GetProductListSuccessProps>(),
+    'Get Products': props<ListOptionsProps>(),
+    'Get Products Success': props<GetProductListSuccessProps>(),
     'Post Product': props<PostProductProps>(),
     'Post Product Success': emptyProps(),
     'Patch Product': props<PatchProductProps>(),
