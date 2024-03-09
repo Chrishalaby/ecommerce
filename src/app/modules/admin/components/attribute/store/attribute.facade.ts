@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { ListOptionsProps } from '@Models/list.model';
 import { State } from '@Models/store.model';
 
+import { ListOptionsProps } from '@Models/list.model';
 import { Attribute } from '../shared/models/attribute.model';
 import { AttributeActions } from './attribute.actions';
 import {

@@ -1,7 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { ListOptionsProps } from '@Models/list.model';
-
+import { TableValues } from '@Models/table.model';
 import {
   DeleteAttributeProps,
   DeleteAttributeSuccessProps,
@@ -17,7 +16,7 @@ export const AttributeActions = createActionGroup({
   events: {
     'Get Attribute': props<GetAttributeProps>(),
     'Get Attribute Success': props<GetAttributeSuccessProps>(),
-    'Get Attributes': props<ListOptionsProps>(),
+    'Get Attributes': props<TableValues>(),
     'Get Attributes Success': props<GetAttributeListSuccessProps>(),
     'Post Attribute': props<PostAttributeProps>(),
     'Post Attribute Success': emptyProps(),

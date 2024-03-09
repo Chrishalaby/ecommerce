@@ -16,4 +16,5 @@ export enum FieldNames {
   Images = 'images',
   Attributes = 'attributes',
   Values = 'values',
+  Id = 'id',
 }

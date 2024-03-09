@@ -34,6 +34,43 @@
       "BUTTONS": {
         "SUBMIT": "Edit"
       }
+    },
+    "VALUE": {
+      "CREATE": {
+        "TITLE": "Create Value",
+        "LABELS": {
+          "LABEL": "Name"
+        },
+        "BUTTONS": {
+          "SUBMIT": "Create"
+        }
+      },
+      "LIST": {
+        "TITLE": "Values",
+        "LABELS": {
+          "NAME": "Name"
+        },
+        "BUTTONS": {
+          "CREATE": "Create Value"
+        }
+      },
+      "DELETE": {
+        "BUTTONS": {
+          "ACCEPT": "Yes",
+          "CANCEL": "No"
+        },
+        "CONFIRM": "Are you sure that you want to delete",
+        "SUCCESS": "Value deleted successfully"
+      },
+      "EDIT": {
+        "TITLE": "Edit Value",
+        "LABELS": {
+          "LABEL": "Name"
+        },
+        "BUTTONS": {
+          "SUBMIT": "Edit"
+        }
+      }
     }
   }
 }

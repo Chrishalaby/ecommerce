@@ -9,7 +9,11 @@ interface TranslateResourceInterface {
 }
 
 export class MultiTranslateLoader implements TranslateLoader {
-  private readonly translationFiles: string[] = ['new-product'];
+  private readonly translationFiles: string[] = [
+    'new-product',
+    'attribute',
+    'shared',
+  ];
 
   public constructor(private readonly httpClient: HttpClient) {}
 

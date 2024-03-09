@@ -4,5 +4,5 @@ import { Environment } from '@Models/environment.models';
 export const environment: Environment = {
   production: false,
   defaultLanguage: SupportedLanguages.English,
-  apiUrl: 'http://localhost:3000',
+  apiUrl: 'http://localhost:3000/',
 };

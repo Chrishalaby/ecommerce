@@ -1,5 +1,9 @@
+import { AttributeEffects } from '@Modules/admin/components/attribute/store/attribute.effects';
+import { attributeFeature } from '@Modules/admin/components/attribute/store/attribute.reducer';
 import { LoadedComponent } from '@Types/general.types';
 import { Routes } from '@angular/router';
+import { provideEffects } from '@ngrx/effects';
+import { provideState } from '@ngrx/store';
 import {
   AdminRoutes,
   AppRoutes,
@@ -31,28 +35,38 @@ export const routes: Routes = [
       {
         path: ModuleRoutes.Attributes,
         // canActivate: [AuthGuard],
-        // providers: [provideState(gradeFeature), provideEffects([AttributeEffects])],
+        providers: [
+          provideState(attributeFeature),
+          provideEffects([AttributeEffects]),
+        ],
         children: [
           {
             path: AppRoutes.Empty,
             loadComponent: () =>
               import(
                 '@Modules/admin/components/attribute/components/attribute-list/attribute-list.component'
-              ).then((x: LoadedComponent) => x.AttributesListComponent),
+              ).then((x: LoadedComponent) => x.AttributeListComponent),
           },
           {
             path: AttributeRoutes.Create,
             loadComponent: () =>
               import(
                 '@Modules/admin/components/attribute/components/attribute-create/attribute-create.component'
-              ).then((x: LoadedComponent) => x.AttributesCreateComponent),
+              ).then((x: LoadedComponent) => x.AttributeCreateComponent),
           },
           {
             path: `:${Params.Id}/${AttributeRoutes.Edit}`,
             loadComponent: () =>
               import(
                 '@Modules/admin/components/attribute/components/attribute-edit/attribute-edit.component'
-              ).then((x: LoadedComponent) => x.AttributesEditComponent),
+              ).then((x: LoadedComponent) => x.AttributeEditComponent),
+          },
+          {
+            path: `:${Params.Id}/${AttributeRoutes.AttributeValue}`,
+            loadComponent: () =>
+              import(
+                '@Modules/admin/components/attribute/components/attribute-value/attribute-value.component'
+              ).then((x: LoadedComponent) => x.AttributeValueComponent),
           },
         ],
       },

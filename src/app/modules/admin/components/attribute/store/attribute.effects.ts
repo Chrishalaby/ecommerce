@@ -11,6 +11,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 
 import { ModuleRoutes } from '@Enums/routes.enum';
 
+import { Store } from '@ngrx/store';
 import { NotificationsService } from 'app/shared/services/notifications.service';
 import { AttributeRepository } from '../shared/attribute.repository';
 import {
@@ -54,7 +55,9 @@ export class AttributeEffects {
         ofType(AttributeActions.postAttributeSuccess),
         tap(() => {
           this.notificationsService.showSuccessMessage('Attribute', 'created');
-          this.router.navigate([ModuleRoutes.Attributes]);
+          this.router.navigate([
+            `${ModuleRoutes.Admin}/${ModuleRoutes.Attributes}`,
+          ]);
         })
       ),
     { dispatch: false }
@@ -79,7 +82,9 @@ export class AttributeEffects {
         ofType(AttributeActions.patchAttributeSuccess),
         tap(() => {
           this.notificationsService.showSuccessMessage('Attribute', 'updated');
-          this.router.navigate([ModuleRoutes.Attributes]);
+          this.router.navigate([
+            `${ModuleRoutes.Admin}/${ModuleRoutes.Attributes}`,
+          ]);
         })
       ),
     { dispatch: false }
@@ -113,6 +118,7 @@ export class AttributeEffects {
     private readonly actions$: Actions,
     private readonly attributeRepository: AttributeRepository,
     private readonly router: Router,
-    private readonly notificationsService: NotificationsService
+    private readonly notificationsService: NotificationsService,
+    private readonly store: Store
   ) {}
 }

@@ -13,10 +13,8 @@
         id="attribute"
         class="input-field"
         [formControlName]="fieldNames.Name"
+        placeholder="{{ 'ATTRIBUTE.EDIT.LABELS.LABEL' | translate }}"
       />
-      <label htmlFor="attribute">{{
-        "ATTRIBUTE.EDIT.LABELS.LABEL" | translate
-      }}</label>
       <inv-field-errors
         [label]="'ATTRIBUTE.EDIT.LABELS.LABEL' | translate"
         [fieldControl]="editAttributeForm.controls[fieldNames.Name]"

@@ -10,13 +10,10 @@
       <input
         pInputText
         type="text"
-        id="attribute"
         class="input-field"
         [formControlName]="fieldNames.Name"
+        placeholder="{{ 'ATTRIBUTE.CREATE.LABELS.LABEL' | translate }}"
       />
-      <label htmlFor="attribute">{{
-        "ATTRIBUTE.CREATE.LABELS.LABEL" | translate
-      }}</label>
       <inv-field-errors
         [label]="'ATTRIBUTE.CREATE.LABELS.LABEL' | translate"
         [fieldControl]="createAttributeForm.controls[fieldNames.Name]"

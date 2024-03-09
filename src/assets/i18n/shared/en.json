@@ -1,0 +1,85 @@
+{
+  "SHARED": {
+    "PAGES": {
+      "404": "Page Not Found"
+    },
+    "COMPONENTS": {
+      "LAYOUT": {
+        "MAIN_MENU_ITEMS": {
+          "PROFILE": {
+            "GREETING": "Welcome Back",
+            "LOGOUT": "Logout"
+          },
+          "HOME": {
+            "TITLE": "Home"
+          },
+          "ENUMS": {
+            "TITLE": "Enums",
+            "POSITION": {
+              "TITLE": "Position",
+              "GRADE": {
+                "TITLE": "Grade"
+              }
+            }
+          },
+          "ADMIN": {
+            "TITLE": "Admin",
+            "EMPLOYEE": {
+              "TITLE": "Employee",
+              "ACCESS_REQUESTS": {
+                "TITLE": "Access Requests"
+              },
+              "MANAGE_USERS": {
+                "TITLE": "Manage Users"
+              }
+            }
+          }
+        }
+      },
+      "FIELD_ERRORS": {
+        "DATE_RANGE": "Invalid range of dates.",
+        "EMAIL": "{{ label }} is not correct email address.",
+        "FILE_UPLOAD_ERROR": "There was an error uploading your file: {{ error }}",
+        "IS_NOT_VALID": "{{ label }} is not valid.",
+        "IS_REQUIRED": "{{ label }} is required",
+        "MAX": "{{ label }} must be less than or equal to {{ value }}.",
+        "MAX_FILE_SIZE": "Max file size is {{ requiredSize }}MB",
+        "MAX_LENGTH": "{{ label }} must be shorter than {{ value }} characters.",
+        "MIN": "{{ label }} must be greater than or equal to {{ value }}.",
+        "MIN_LENGTH": "{{ label }} must be longer than {{ value }} characters.",
+        "MUST_BE_INTEGER": "{{ label }} must be integer value.",
+        "MUST_BE_SAME": "{{ label }} must be same.",
+        "PASSWORD": "From 6 to 50 characters, at least: one capital letter,  one small letter, one number, one special character (allowed: @$!%*?&_#-). No spaces."
+      },
+      "TABLE_LIST": {
+        "CREATE": {
+          "TITLE": "Create ",
+          "LABEL": "Status",
+          "BUTTONS": {
+            "CREATE": "Create"
+          }
+        },
+        "LIST": {
+          "TITLE": "List View",
+          "BUTTONS": {
+            "CREATE": "Create"
+          }
+        },
+        "DELETE": {
+          "BUTTONS": {
+            "ACCEPT": "Yes",
+            "CANCEL": "No"
+          },
+          "CONFIRM": "Are you sure that you want to delete",
+          "SUCCESS": "Deleted successfully"
+        },
+        "EDIT": {
+          "TITLE": "Edit",
+          "BUTTONS": {
+            "SUBMIT": "Submit"
+          }
+        }
+      }
+    }
+  }
+}

@@ -12,7 +12,9 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideStore } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MessageService } from 'primeng/api';
 import { routes } from './app.routes';
+import { AUTH_INTERCEPTOR_PROVIDER } from './shared/interceptors/auth.interceptor';
 import { MultiTranslateLoader } from './shared/loaders/multi-translate.loader';
 
 export const appConfig: ApplicationConfig = {
@@ -34,5 +36,7 @@ export const appConfig: ApplicationConfig = {
     ]),
     provideStore(reducerToken, { initialState: getInitialState }),
     REDUCER_PROVIDER,
+    MessageService,
+    AUTH_INTERCEPTOR_PROVIDER,
   ],
 };

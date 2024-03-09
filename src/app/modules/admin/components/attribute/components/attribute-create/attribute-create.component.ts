@@ -31,7 +31,7 @@ import { AttributeFacade } from '../../store/attribute.facade';
     FieldErrorsComponent,
   ],
 })
-export class AttributesCreateComponent implements OnInit {
+export class AttributeCreateComponent implements OnInit {
   createAttributeForm!: FormGroup;
   readonly fieldNames: typeof FieldNames = FieldNames;
 
@@ -47,7 +47,7 @@ export class AttributesCreateComponent implements OnInit {
   initializeForm(): FormGroup {
     return this.formBuilder.group({
       [FieldNames.Name]: [
-        1,
+        '',
         [Validators.required, Validators.max(99), Validators.min(1)],
       ],
     });

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ConfirmationService, MessageService, SortEvent } from 'primeng/api';
+import { ConfirmationService, SortEvent } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
@@ -36,14 +36,18 @@ import { AttributeFacade } from '../../store/attribute.facade';
     TranslateModule,
     RouterModule,
   ],
-  providers: [DialogService, MessageService, ConfirmationService],
+  providers: [DialogService, ConfirmationService],
 })
 export class AttributeListComponent implements OnInit {
   attributes: Attribute[] = [];
 
-  columns: any = [
+  attributeColumns: any = [
     { field: 'id', header: 'ID' },
     { field: 'name', header: 'Name' },
+  ];
+  attributeValueColumns: any = [
+    { field: 'id', header: 'ID' },
+    { field: 'value', header: 'Value' },
   ];
 
   tableForm!: TableEventForm;
@@ -69,7 +73,7 @@ export class AttributeListComponent implements OnInit {
     this.attributeRepository
       .getAndPaginate(tableValues)
       .subscribe((data: any) => {
-        this.attributes = data.data;
+        this.attributes = data;
         if (
           this.tableForm.get(FieldNames.TotalRecords)?.value !== data.total ||
           this.tableForm.get(FieldNames.PageCount)?.value !== data.pageCount
@@ -118,7 +122,7 @@ export class AttributeListComponent implements OnInit {
 
   deleteAttribute(attribute: Attribute): void {
     this.confirmationService.confirm({
-      message: `${this.translateService.instant('GENDER.DELETE.CONFIRM')} ${
+      message: `${this.translateService.instant('ATTRIBUTE.DELETE.CONFIRM')} ${
         attribute.name
       }?`,
       icon: 'pi pi-exclamation-triangle',
@@ -130,7 +134,13 @@ export class AttributeListComponent implements OnInit {
 
   editAttribute(attribute: AttributeListItem): void {
     this.router.navigate([
-      `${ModuleRoutes.Attributes}/${attribute.id}/${AttributeRoutes.Edit}`,
+      `${ModuleRoutes.Admin}/${ModuleRoutes.Attributes}/${attribute.id}/${AttributeRoutes.Edit}`,
+    ]);
+  }
+
+  addAttributeValue(attribute: AttributeListItem): void {
+    this.router.navigate([
+      `${ModuleRoutes.Admin}/${ModuleRoutes.Attributes}/${attribute.id}/${AttributeRoutes.AttributeValue}`,
     ]);
   }
 }

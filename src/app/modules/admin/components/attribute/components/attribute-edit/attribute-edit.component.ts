@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -14,8 +14,11 @@ import { Observable, filter, switchMap, tap } from 'rxjs';
 
 import { FieldErrorsComponent } from '@Components/field-errors/field-errors.component';
 import { FieldNames } from '@Enums/fields.enum';
-import { ModuleRoutes, Params } from '@Enums/routes.enum';
-import { AttributeListItem } from '../../shared/models/attribute.model';
+import { Params } from '@Enums/routes.enum';
+import {
+  Attribute,
+  AttributeListItem,
+} from '../../shared/models/attribute.model';
 import { AttributeFacade } from '../../store/attribute.facade';
 
 @Component({
@@ -33,14 +36,13 @@ import { AttributeFacade } from '../../store/attribute.facade';
 })
 export class AttributeEditComponent implements OnInit {
   editAttributeForm!: FormGroup;
-  attributeItem!: AttributeListItem;
+  attributeItem!: Attribute;
   readonly fieldNames: typeof FieldNames = FieldNames;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly route: ActivatedRoute,
-    private readonly attributeFacade: AttributeFacade,
-    private readonly router: Router
+    private readonly attributeFacade: AttributeFacade
   ) {}
 
   ngOnInit(): void {
@@ -65,7 +67,7 @@ export class AttributeEditComponent implements OnInit {
           () =>
             <Observable<AttributeListItem>>this.attributeFacade.selectAttribute$
         ),
-        tap((attribute: AttributeListItem) => {
+        tap((attribute: any) => {
           if (attribute) {
             this.attributeItem = attribute;
             this.initializeForm();
@@ -86,6 +88,5 @@ export class AttributeEditComponent implements OnInit {
       this.attributeItem.id,
       this.editAttributeForm.value
     );
-    this.router.navigate([ModuleRoutes.Attributes]);
   }
 }

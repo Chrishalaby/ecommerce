@@ -2,6 +2,7 @@
   [value]="attributes"
   [customSort]="true"
   (sortFunction)="customSort($event)"
+  dataKey="id"
 >
   <ng-template pTemplate="caption">
     <div class="flex flex-row justify-content-between align-items-center">
@@ -16,7 +17,8 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
-      <ng-container *ngFor="let col of columns">
+      <th style="width: 5rem"></th>
+      <ng-container *ngFor="let col of attributeColumns">
         <th [pSortableColumn]="col.header">
           {{ col.header }}
           <p-sortIcon [field]="col.header"></p-sortIcon>
@@ -30,14 +32,30 @@
       <th>Actions</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-attribute>
+  <ng-template pTemplate="body" let-attribute let-expanded="expanded">
     <tr>
-      <ng-container *ngFor="let col of columns">
+      <td>
+        <button
+          type="button"
+          pButton
+          pRipple
+          [pRowToggler]="attribute"
+          class="p-button-text p-button-rounded p-button-plain"
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+        ></button>
+      </td>
+      <ng-container *ngFor="let col of attributeColumns">
         <td>
           {{ attribute[col.field] }}
         </td>
       </ng-container>
       <td>
+        <p-button
+          icon="pi pi-plus"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="addAttributeValue(attribute)"
+        ></p-button>
         <p-button
           icon="pi pi-pencil"
           [rounded]="true"
@@ -50,6 +68,45 @@
           [text]="true"
           (onClick)="deleteAttribute(attribute)"
         ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-attributeValues>
+    <tr>
+      <td colspan="7">
+        <div class="p-3">
+          <p-table [value]="attributeValues.values" dataKey="id">
+            <ng-template pTemplate="header">
+              <tr>
+                <ng-container *ngFor="let col of attributeValueColumns">
+                  <th [pSortableColumn]="col.header">
+                    {{ col.header }}
+                    <p-sortIcon [field]="col.header"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      [field]="col.header"
+                      display="menu"
+                    ></p-columnFilter>
+                  </th>
+                </ng-container>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-value>
+              <tr>
+                <ng-container *ngFor="let col of attributeValueColumns">
+                  <td>
+                    {{ value[col.field] }}
+                  </td>
+                </ng-container>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="6">There are no values yet.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
       </td>
     </tr>
   </ng-template>
