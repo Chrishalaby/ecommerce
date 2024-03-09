@@ -1,36 +1,63 @@
 <p-card
   class="min-h-screen flex justify-content-center align-items-center"
-  [header]="'ATTRIBUTE.EDIT.TITLE' | translate"
+  header="Edit Attribute"
 >
   <form
-    class="flex flex-column align-items-center"
     [formGroup]="editAttributeForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-column align-items-center"
   >
+    <!-- Attribute Name -->
     <span class="p-float-label">
       <input
         pInputText
         type="text"
-        id="attribute"
+        id="name"
+        formControlName="name"
+        placeholder="Attribute Name"
         class="input-field"
-        [formControlName]="fieldNames.Name"
-        placeholder="{{ 'ATTRIBUTE.EDIT.LABELS.LABEL' | translate }}"
       />
-      <inv-field-errors
-        [label]="'ATTRIBUTE.EDIT.LABELS.LABEL' | translate"
-        [fieldControl]="editAttributeForm.controls[fieldNames.Name]"
-      ></inv-field-errors>
+      <label for="name">Attribute Name</label>
     </span>
-    <span class="mt-4 flex flex-row gap-3">
-      <p-button
-        (onClick)="onCancel()"
-        [label]="'ATTRIBUTE.EDIT.BUTTONS.CANCEL' | translate"
-      ></p-button>
-      <p-button
-        (onClick)="onSubmit()"
-        [label]="'ATTRIBUTE.EDIT.BUTTONS.SUBMIT' | translate"
-        [disabled]="editAttributeForm.invalid"
+    <inv-field-errors
+      [label]="'Attribute Name'"
+      [fieldControl]="editAttributeForm.controls['name']"
+    ></inv-field-errors>
+
+    <!-- Dynamic Form Array for Attribute Values -->
+    <div formArrayName="values" class="mt-4">
+      <div
+        *ngFor="let valueControl of valuesFormArray.controls; let i = index"
+        [formGroupName]="i"
+        class="form-group mt-1"
       >
-      </p-button>
-    </span>
+        <input
+          type="text"
+          pInputText
+          formControlName="value"
+          placeholder="Attribute Value"
+        />
+        <p-button
+          type="button"
+          icon="pi pi-trash"
+          (click)="removeValueControl(i)"
+        ></p-button>
+      </div>
+      <p-button
+        type="button"
+        label="Add Value"
+        (click)="addValueControl()"
+      ></p-button>
+    </div>
+
+    <!-- Form Buttons -->
+    <div class="mt-4 flex flex-row gap-3">
+      <p-button type="button" label="Cancel" (onClick)="onCancel()"></p-button>
+      <p-button
+        type="submit"
+        label="Submit"
+        [disabled]="editAttributeForm.invalid"
+      ></p-button>
+    </div>
   </form>
 </p-card>

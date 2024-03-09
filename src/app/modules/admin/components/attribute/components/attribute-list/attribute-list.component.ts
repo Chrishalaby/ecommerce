@@ -137,10 +137,4 @@ export class AttributeListComponent implements OnInit {
       `${ModuleRoutes.Admin}/${ModuleRoutes.Attributes}/${attribute.id}/${AttributeRoutes.Edit}`,
     ]);
   }
-
-  addAttributeValue(attribute: AttributeListItem): void {
-    this.router.navigate([
-      `${ModuleRoutes.Admin}/${ModuleRoutes.Attributes}/${attribute.id}/${AttributeRoutes.AttributeValue}`,
-    ]);
-  }
 }

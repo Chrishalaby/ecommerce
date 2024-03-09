@@ -61,13 +61,6 @@ export const routes: Routes = [
                 '@Modules/admin/components/attribute/components/attribute-edit/attribute-edit.component'
               ).then((x: LoadedComponent) => x.AttributeEditComponent),
           },
-          {
-            path: `:${Params.Id}/${AttributeRoutes.AttributeValue}`,
-            loadComponent: () =>
-              import(
-                '@Modules/admin/components/attribute/components/attribute-value/attribute-value.component'
-              ).then((x: LoadedComponent) => x.AttributeValueComponent),
-          },
         ],
       },
     ],

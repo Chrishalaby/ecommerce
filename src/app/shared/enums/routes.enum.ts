@@ -26,7 +26,6 @@ export enum AdminRoutes {
 export enum AttributeRoutes {
   Create = 'create',
   Edit = 'edit',
-  AttributeValue = 'attribute-value',
 }
 
 export enum Params {
