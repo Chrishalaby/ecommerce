@@ -10,7 +10,7 @@
             pInputText
             type="text"
             placeholder="{{ 'NEW_PRODUCT.CREATE.NAME' | translate }}"
-            formControlName="name"
+            [formControlName]="fieldNames.Name"
           />
         </div>
         <div class="col-12 lg:col-4 field">
@@ -18,7 +18,7 @@
             pInputText
             type="text"
             placeholder="{{ 'NEW_PRODUCT.CREATE.PRICE' | translate }}"
-            formControlName="price"
+            [formControlName]="fieldNames.Price"
           />
         </div>
         <div class="col-12 lg:col-4 field">
@@ -26,7 +26,7 @@
             pInputText
             type="text"
             placeholder="{{ 'NEW_PRODUCT.CREATE.CODE' | translate }}"
-            formControlName="code"
+            [formControlName]="fieldNames.Code"
           />
         </div>
         <div class="col-12 lg:col-4 field">
@@ -34,7 +34,7 @@
             pInputText
             type="text"
             placeholder="{{ 'NEW_PRODUCT.CREATE.SKU' | translate }}"
-            formControlName="sku"
+            [formControlName]="fieldNames.Sku"
           />
         </div>
         <div class="col-12 field">
@@ -46,7 +46,7 @@
             [style]="{ height: '250px', width: '100%' }"
             pInputTextarea
             placeholder="{{ 'NEW_PRODUCT.CREATE.DESCRIPTION' | translate }}"
-            formControlName="description"
+            [formControlName]="fieldNames.Description"
           ></textarea>
         </div>
         <div class="col-12 field">
@@ -135,14 +135,14 @@
           </span>
 
           <div
-            *ngFor="let attribute of attributes().controls; let i = index"
+            *ngFor="let attribute of getAttributes().controls; let i = index"
             [formGroupName]="i"
             class="p-3 grid"
           >
             <p-dropdown
               class="col-12 md:col-11"
               [options]="attributeOptions"
-              formControlName="key"
+              [formControlName]="fieldNames.Name"
               placeholder="{{
                 'NEW_PRODUCT.CREATE.SELECT_ATTRIBUTE' | translate
               }}"
@@ -157,7 +157,7 @@
             <p-multiSelect
               class="col-12 md:col-11"
               [options]="getValuesOptions(i)"
-              formControlName="values"
+              [formControlName]="fieldNames.Values"
               defaultLabel="{{ 'NEW_PRODUCT.CREATE.SELECT_VALUE' | translate }}"
               [showClear]="true"
             ></p-multiSelect>
@@ -176,7 +176,7 @@
         <span class="text-900 font-bold p-3">{{
           "NEW_PRODUCT.CREATE.INSTOCK" | translate
         }}</span>
-        <p-inputSwitch formControlName="inStock"></p-inputSwitch>
+        <p-inputSwitch [formControlName]="fieldNames.InStock"></p-inputSwitch>
       </div>
 
       <div

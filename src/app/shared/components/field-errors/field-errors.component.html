@@ -1,0 +1,47 @@
+<ng-container *ngIf="fieldControl?.errors; let errors">
+  <div *ngIf="fieldControl?.invalid && (fieldControl?.dirty || fieldControl?.touched)" class="form-error">
+    <div *ngIf="errors[formFieldErrors.Required]">
+      {{ errorsTranslationPath + 'IS_REQUIRED' | translate: { label: label } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.MinLength]; let error">
+      {{ errorsTranslationPath + 'MIN_LENGTH' | translate: { label: label, value: error.requiredLength } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.MaxLength]; let error">
+      {{ errorsTranslationPath + 'MAX_LENGTH' | translate: { label: label, value: error.requiredLength } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.Min]; let error">
+      {{ errorsTranslationPath + 'MIN' | translate: { label: label, value: error.min } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.Max]; let error">
+      {{ errorsTranslationPath + 'MAX' | translate: { label: label, value: error.max } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.Integer]">
+      {{ errorsTranslationPath + 'MUST_BE_INTEGER' | translate: { label: label } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.Match]">
+      {{ errorsTranslationPath + 'MUST_BE_SAME' | translate: { label: label } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.Pattern]">
+      {{ errorsTranslationPath + 'IS_NOT_VALID' | translate: { label: label } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.Email]">
+      {{ errorsTranslationPath + 'EMAIL' | translate: { label: label } }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.InvalidDateRange]">
+      {{ errorsTranslationPath + 'DATE_RANGE' | translate }}
+    </div>
+
+    <div *ngIf="errors[formFieldErrors.CustomMessagePattern]; let error">
+      {{ errorsTranslationPath + error | translate }}
+    </div>
+  </div>
+</ng-container>

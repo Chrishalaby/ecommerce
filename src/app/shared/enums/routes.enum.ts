@@ -8,6 +8,7 @@ export enum ModuleRoutes {
   Auth = 'auth',
   Admin = 'admin',
   Products = 'products',
+  Attributes = 'attributes',
 }
 
 export enum AuthRoutes {
@@ -20,4 +21,14 @@ export enum AuthRoutes {
 export enum AdminRoutes {
   Dashboard = 'dashboard',
   NewProduct = 'new-product',
+}
+
+export enum AttributeRoutes {
+  Create = 'create',
+  Edit = 'edit',
+}
+
+export enum Params {
+  Id = 'id',
+  Token = ':token',
 }

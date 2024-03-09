@@ -1,0 +1,82 @@
+<p-table
+  [value]="attributes"
+  [customSort]="true"
+  (sortFunction)="customSort($event)"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex flex-row justify-content-between align-items-center">
+      <h1>{{ "ATTRIBUTE.LIST.TITLE" | translate }}</h1>
+      <p-button
+        [label]="'ATTRIBUTE.LIST.BUTTONS.CREATE' | translate"
+        icon="pi pi-plus"
+        styleClass="p-button-rounded"
+        [routerLink]="['./create']"
+      ></p-button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <ng-container *ngFor="let col of columns">
+        <th [pSortableColumn]="col.header">
+          {{ col.header }}
+          <p-sortIcon [field]="col.header"></p-sortIcon>
+          <p-columnFilter
+            type="text"
+            [field]="col.header"
+            display="menu"
+          ></p-columnFilter>
+        </th>
+      </ng-container>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-attribute>
+    <tr>
+      <ng-container *ngFor="let col of columns">
+        <td>
+          {{ attribute[col.field] }}
+        </td>
+      </ng-container>
+      <td>
+        <p-button
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="editAttribute(attribute)"
+        ></p-button>
+        <p-button
+          icon="pi pi-trash"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="deleteAttribute(attribute)"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="0"
+      [rows]="tableForm.get(fieldNames.CountPerPage)?.value || 10"
+      [totalRecords]="tableForm.get(fieldNames.TotalRecords)?.value || 1"
+      [rowsPerPageOptions]="[10, 20, 30]"
+    ></p-paginator>
+  </ng-template>
+</p-table>
+
+<p-confirmDialog header="Confirmation" #cd>
+  <ng-template pTemplate="footer">
+    <button
+      type="button"
+      pButton
+      [label]="'ATTRIBUTE.DELETE.BUTTONS.CANCEL' | translate"
+      (click)="cd.reject()"
+    ></button>
+    <p-button
+      type="button"
+      [label]="'ATTRIBUTE.DELETE.BUTTONS.ACCEPT' | translate"
+      styleClass="p-button-danger"
+      (click)="cd.accept()"
+    ></p-button>
+  </ng-template>
+</p-confirmDialog>

@@ -1,31 +1,26 @@
+import { Attribute } from '@angular/core';
+import { AttributeValue } from '../../attribute/shared/models/attribute.model';
+
 export interface Product {
-  id?: number;
-  code?: string;
-  name?: string;
-  description?: string;
-  price?: number;
-  quantity?: number;
-  inventoryStatus?: InventoryStatus;
-  image?: string;
-  rating?: number;
-  sku: string;
-  inStock: boolean;
-  images: Image[];
-  attributes: Attribute[];
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  attributes: ProductAttribute[];
+  images: Blob;
 }
 
-interface InventoryStatus {
-  label: string;
-  value: string;
+interface ProductAttribute {
+  id: number;
+  product: Product;
+  attribute: Attribute;
+  attributeValue: AttributeValue;
 }
+
 export interface Image {
   name: string;
   objectURL: string;
-}
-
-export interface Attribute {
-  label: string;
-  value: string;
 }
 
 export interface ProductResponse extends Product {

@@ -15,4 +15,5 @@ export enum FieldNames {
   Description = 'description',
   Images = 'images',
   Attributes = 'attributes',
+  Values = 'values',
 }

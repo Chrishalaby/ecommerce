@@ -1,0 +1,34 @@
+<p-card
+  class="min-h-screen flex justify-content-center align-items-center"
+  [header]="'ATTRIBUTE.EDIT.TITLE' | translate"
+>
+  <form
+    class="flex flex-column align-items-center"
+    [formGroup]="editAttributeForm"
+  >
+    <span class="p-float-label">
+      <input
+        pInputText
+        type="text"
+        id="attribute"
+        class="input-field"
+        [formControlName]="fieldNames.Name"
+      />
+      <label htmlFor="attribute">{{
+        "ATTRIBUTE.EDIT.LABELS.LABEL" | translate
+      }}</label>
+      <inv-field-errors
+        [label]="'ATTRIBUTE.EDIT.LABELS.LABEL' | translate"
+        [fieldControl]="editAttributeForm.controls[fieldNames.Name]"
+      ></inv-field-errors>
+    </span>
+
+    <p-button
+      class="mt-4"
+      (onClick)="onSubmit()"
+      [label]="'ATTRIBUTE.EDIT.BUTTONS.SUBMIT' | translate"
+      [disabled]="editAttributeForm.invalid"
+    >
+    </p-button>
+  </form>
+</p-card>

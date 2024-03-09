@@ -1,0 +1,39 @@
+{
+  "ATTRIBUTE": {
+    "CREATE": {
+      "TITLE": "Create Attribute",
+      "LABELS": {
+        "LABEL": "Name"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Create"
+      }
+    },
+    "LIST": {
+      "TITLE": "Attributes",
+      "LABELS": {
+        "NAME": "Name"
+      },
+      "BUTTONS": {
+        "CREATE": "Create Attribute"
+      }
+    },
+    "DELETE": {
+      "BUTTONS": {
+        "ACCEPT": "Yes",
+        "CANCEL": "No"
+      },
+      "CONFIRM": "Are you sure that you want to delete",
+      "SUCCESS": "Attribute deleted successfully"
+    },
+    "EDIT": {
+      "TITLE": "Edit Attribute",
+      "LABELS": {
+        "LABEL": "Name"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Edit"
+      }
+    }
+  }
+}

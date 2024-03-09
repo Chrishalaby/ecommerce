@@ -3,8 +3,10 @@ import { Routes } from '@angular/router';
 import {
   AdminRoutes,
   AppRoutes,
+  AttributeRoutes,
   AuthRoutes,
   ModuleRoutes,
+  Params,
 } from './shared/enums/routes.enum';
 
 export const routes: Routes = [
@@ -25,6 +27,34 @@ export const routes: Routes = [
           import(
             '@Modules/admin/components/new-product/new-product.component'
           ).then((m: LoadedComponent) => m.NewProductComponent),
+      },
+      {
+        path: ModuleRoutes.Attributes,
+        // canActivate: [AuthGuard],
+        // providers: [provideState(gradeFeature), provideEffects([AttributeEffects])],
+        children: [
+          {
+            path: AppRoutes.Empty,
+            loadComponent: () =>
+              import(
+                '@Modules/admin/components/attribute/components/attribute-list/attribute-list.component'
+              ).then((x: LoadedComponent) => x.AttributesListComponent),
+          },
+          {
+            path: AttributeRoutes.Create,
+            loadComponent: () =>
+              import(
+                '@Modules/admin/components/attribute/components/attribute-create/attribute-create.component'
+              ).then((x: LoadedComponent) => x.AttributesCreateComponent),
+          },
+          {
+            path: `:${Params.Id}/${AttributeRoutes.Edit}`,
+            loadComponent: () =>
+              import(
+                '@Modules/admin/components/attribute/components/attribute-edit/attribute-edit.component'
+              ).then((x: LoadedComponent) => x.AttributesEditComponent),
+          },
+        ],
       },
     ],
   },

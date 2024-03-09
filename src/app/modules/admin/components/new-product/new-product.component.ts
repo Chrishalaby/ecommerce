@@ -1,8 +1,5 @@
 import { FieldNames } from '@Enums/fields.enum';
-import {
-  Attribute,
-  Image,
-} from '@Modules/admin/components/new-product/shared/product.model';
+import { Image } from '@Modules/admin/components/new-product/shared/product.model';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -19,7 +16,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DialogModule } from 'primeng/dialog';
@@ -30,6 +27,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
+import { Attribute } from '../attribute/shared/models/attribute.model';
 import { ProductFacade } from './store/product.facade';
 
 @Component({
@@ -54,9 +52,12 @@ import { ProductFacade } from './store/product.facade';
     MultiSelectModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ProductFacade],
 })
 export class NewProductComponent implements OnInit {
   @ViewChildren('buttonEl') buttonEl!: QueryList<ElementRef>;
+
+  readonly fieldNames: typeof FieldNames = FieldNames;
 
   // product: Product = {
   //   name: '',
@@ -83,12 +84,8 @@ export class NewProductComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private translate: TranslateService,
     private readonly productFacade: ProductFacade
-  ) {
-    translate.setDefaultLang('en');
-    translate.use('en');
-  }
+  ) {}
 
   ngOnInit(): void {
     this.productForm = this.initializeForm();
@@ -110,21 +107,20 @@ export class NewProductComponent implements OnInit {
   addNewAttribute(): void {
     if (
       this.newAttribute &&
-      !this.attributeOptions.some(
-        (option: Attribute) => option.value === this.newAttribute
-      )
+      !this.attributeOptions.some((option) => option.name === this.newAttribute)
     ) {
-      this.attributeOptions.push({
-        label: this.newAttribute,
-        value: this.newAttribute,
-      });
-      this.newAttribute = '';
-    }
+      const attributeToAdd: Partial<Attribute> = {
+        name: this.newAttribute,
+      };
 
-    this.displayAttributeDialog = false;
-  }
-  attributes(): FormArray {
-    return this.productForm.get('attributes') as FormArray;
+      // this.attributeService.createAttribute(attributeToAdd).subscribe({
+      //   next: (response: any) => {
+      //     this.attributeOptions.push(response);
+      //     this.newAttribute = '';
+      //     this.displayAttributeDialog = false;
+      //   },
+      // });
+    }
   }
 
   getValuesOptions(attributeIndex: number): any[] {
@@ -135,7 +131,11 @@ export class NewProductComponent implements OnInit {
   }
 
   getValues(attributeIndex: number): FormArray {
-    return this.attributes().at(attributeIndex).get('values') as FormArray;
+    return this.getAttributes().at(attributeIndex).get('values') as FormArray;
+  }
+
+  getAttributes(): FormArray {
+    return this.productForm.get(FieldNames.Attributes) as FormArray;
   }
 
   addAttribute(): void {
@@ -143,7 +143,7 @@ export class NewProductComponent implements OnInit {
       key: '',
       values: this.fb.array([this.fb.control('')]),
     });
-    this.attributes().push(attributeFormGroup);
+    this.getAttributes().push(attributeFormGroup);
   }
 
   addNewValue(attributeIndex: number): void {
@@ -190,6 +190,8 @@ export class NewProductComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.productFacade.postProduct(this.productForm.value);
+    console.log(this.productForm.value);
+    // this.productForm.get('images')?.setValue(this.images);
+    // this.productFacade.postProduct(this.productForm.value);
   }
 }
