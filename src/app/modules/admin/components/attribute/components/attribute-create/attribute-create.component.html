@@ -20,12 +20,15 @@
       ></inv-field-errors>
     </span>
 
-    <p-button
-      class="mt-4"
-      (onClick)="onSubmit()"
-      [label]="'ATTRIBUTE.CREATE.BUTTONS.SUBMIT' | translate"
-      cy-data="createAttributeButton"
-      [disabled]="createAttributeForm.invalid"
-    ></p-button>
+    <div class="mt-4 flex flex-row gap-3">
+      <p-button type="button" label="Cancel" (onClick)="onCancel()"></p-button>
+
+      <p-button
+        (onClick)="onSubmit()"
+        [label]="'ATTRIBUTE.CREATE.BUTTONS.SUBMIT' | translate"
+        cy-data="createAttributeButton"
+        [disabled]="createAttributeForm.invalid"
+      ></p-button>
+    </div>
   </form>
 </p-card>

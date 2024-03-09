@@ -14,6 +14,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 
 import { FieldErrorsComponent } from '@Components/field-errors/field-errors.component';
 import { FieldNames } from '@Enums/fields.enum';
+import { ModuleRoutes } from '@Enums/routes.enum';
+import { Router } from '@angular/router';
 import { AttributeFacade } from '../../store/attribute.facade';
 
 @Component({
@@ -37,7 +39,8 @@ export class AttributeCreateComponent implements OnInit {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly attributeFacade: AttributeFacade
+    private readonly attributeFacade: AttributeFacade,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -55,5 +58,9 @@ export class AttributeCreateComponent implements OnInit {
 
   onSubmit(): void {
     this.attributeFacade.postAttribute(this.createAttributeForm.value);
+  }
+
+  onCancel(): void {
+    this.router.navigate([`${ModuleRoutes.Admin}/${ModuleRoutes.Attributes}`]);
   }
 }
