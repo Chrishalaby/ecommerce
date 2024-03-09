@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -14,7 +14,7 @@ import { Observable, filter, switchMap, tap } from 'rxjs';
 
 import { FieldErrorsComponent } from '@Components/field-errors/field-errors.component';
 import { FieldNames } from '@Enums/fields.enum';
-import { Params } from '@Enums/routes.enum';
+import { ModuleRoutes, Params } from '@Enums/routes.enum';
 import {
   Attribute,
   AttributeListItem,
@@ -42,7 +42,8 @@ export class AttributeEditComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly route: ActivatedRoute,
-    private readonly attributeFacade: AttributeFacade
+    private readonly attributeFacade: AttributeFacade,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -84,9 +85,16 @@ export class AttributeEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.attributeFacade.patchAttribute(
-      this.attributeItem.id,
-      this.editAttributeForm.value
-    );
+    const formValue = {
+      values: this.editAttributeForm.value,
+      id: this.attributeItem.id,
+      name: this.attributeItem.name,
+    };
+
+    this.attributeFacade.patchAttribute(formValue);
+  }
+
+  onCancel(): void {
+    this.router.navigate([`${ModuleRoutes.Admin}/${ModuleRoutes.Attributes}`]);
   }
 }

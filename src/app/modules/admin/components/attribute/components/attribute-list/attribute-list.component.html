@@ -19,17 +19,17 @@
     <tr>
       <th style="width: 5rem"></th>
       <ng-container *ngFor="let col of attributeColumns">
-        <th [pSortableColumn]="col.header">
+        <th>
           {{ col.header }}
-          <p-sortIcon [field]="col.header"></p-sortIcon>
+          <!-- <p-sortIcon [field]="col.header"></p-sortIcon>
           <p-columnFilter
             type="text"
             [field]="col.header"
             display="menu"
-          ></p-columnFilter>
+          ></p-columnFilter> -->
         </th>
       </ng-container>
-      <th>Actions</th>
+      <th>{{ "ATTRIBUTE.LIST.ACTIONS" | translate }}</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-attribute let-expanded="expanded">
@@ -79,14 +79,8 @@
             <ng-template pTemplate="header">
               <tr>
                 <ng-container *ngFor="let col of attributeValueColumns">
-                  <th [pSortableColumn]="col.header">
+                  <th>
                     {{ col.header }}
-                    <p-sortIcon [field]="col.header"></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      [field]="col.header"
-                      display="menu"
-                    ></p-columnFilter>
                   </th>
                 </ng-container>
               </tr>
@@ -102,7 +96,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage">
               <tr>
-                <td colspan="6">There are no values yet.</td>
+                <td colspan="6">{{ "ATTRIBUTE.LIST.NO_DATA" | translate }}</td>
               </tr>
             </ng-template>
           </p-table>

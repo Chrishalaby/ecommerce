@@ -41,10 +41,8 @@ export class AttributeFacade {
     this.store.dispatch(AttributeActions.postAttribute({ attribute }));
   }
 
-  public patchAttribute(id: number, attributeUpdate: Partial<Attribute>): void {
-    this.store.dispatch(
-      AttributeActions.patchAttribute({ id, attributeUpdate })
-    );
+  public patchAttribute(attributeUpdate: Partial<Attribute>): void {
+    this.store.dispatch(AttributeActions.patchAttribute({ attributeUpdate }));
   }
 
   public deleteAttribute(id: number): void {

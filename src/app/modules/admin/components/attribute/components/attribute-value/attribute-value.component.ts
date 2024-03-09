@@ -37,7 +37,7 @@ import { AttributeFacade } from '../../store/attribute.facade';
 })
 export class AttributeValueComponent implements OnInit {
   editAttributeForm!: FormGroup;
-  attributeItem!: Attribute; // Assuming you have a proper type for this
+  attributeItem: Attribute = {} as Attribute;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -69,6 +69,7 @@ export class AttributeValueComponent implements OnInit {
         tap((attribute: any) => {
           if (attribute) {
             this.attributeItem = attribute;
+
             this.initializeValuesFormArray(attribute.values);
           }
         })
@@ -77,31 +78,42 @@ export class AttributeValueComponent implements OnInit {
   }
 
   initializeValuesFormArray(values: AttributeValue[]): void {
-    if (!values) {
-      return;
+    // Clear the form array before adding new values
+    while (this.valuesFormArray.length) {
+      this.valuesFormArray.removeAt(0);
     }
-    const valuesArray = this.editAttributeForm.get('values') as FormArray;
-    values.forEach((value) => {
-      valuesArray.push(this.formBuilder.control(value));
+
+    // Add the values to the form array
+    values.forEach((value: AttributeValue) => {
+      this.addValueControl(value);
     });
   }
 
-  addValueControl(): void {
-    (this.editAttributeForm.get('values') as FormArray).push(
-      this.formBuilder.control('')
-    );
+  addValueControl(value: AttributeValue = { id: 0, value: '' }): void {
+    const valueGroup = this.formBuilder.group({
+      id: [value.id],
+      value: [value.value],
+    });
+    this.valuesFormArray.push(valueGroup);
   }
 
   removeValueControl(index: number): void {
     (this.editAttributeForm.get('values') as FormArray).removeAt(index);
   }
-
   onSubmit(): void {
     if (this.editAttributeForm.valid) {
-      this.attributeFacade.patchAttribute(
-        this.attributeItem.id,
-        this.editAttributeForm.value
+      const formValuesWithIds = this.editAttributeForm.value.values.map(
+        (v: any) => {
+          return { id: v.id || null, value: v.value };
+        }
       );
+
+      const submissionForm = {
+        values: formValuesWithIds,
+        id: this.attributeItem.id,
+        name: this.attributeItem.name,
+      };
+      this.attributeFacade.patchAttribute(submissionForm);
     }
   }
 

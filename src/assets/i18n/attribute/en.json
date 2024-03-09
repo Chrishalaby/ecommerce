@@ -16,7 +16,9 @@
       },
       "BUTTONS": {
         "CREATE": "Create Attribute"
-      }
+      },
+      "ACTIONS": "Actions",
+      "NO_DATA": "No data available in table"
     },
     "DELETE": {
       "BUTTONS": {
@@ -32,7 +34,8 @@
         "LABEL": "Name"
       },
       "BUTTONS": {
-        "SUBMIT": "Edit"
+        "SUBMIT": "Edit",
+        "CANCEL": "Cancel"
       }
     },
     "VALUE": {

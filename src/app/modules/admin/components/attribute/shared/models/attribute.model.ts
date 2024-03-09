@@ -11,7 +11,6 @@ export interface Attribute {
 export interface AttributeValue {
   id: number;
   value: string;
-  attribute: Attribute;
 }
 
 export interface AttributeResponse extends Attribute {

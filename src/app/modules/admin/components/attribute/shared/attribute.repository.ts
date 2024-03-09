@@ -28,13 +28,9 @@ export class AttributeRepository {
   }
 
   updateAttribute(
-    attributeId: number,
     attributeUpdate: Partial<Attribute>
   ): Observable<AttributeResponse> {
-    return this.httpClient.put<AttributeResponse>(
-      `attribute/${attributeId}`,
-      attributeUpdate
-    );
+    return this.httpClient.post<Attribute>(`attribute/update`, attributeUpdate);
   }
 
   deleteAttribute(attributeId: number): Observable<null> {

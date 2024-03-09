@@ -20,13 +20,17 @@
         [fieldControl]="editAttributeForm.controls[fieldNames.Name]"
       ></inv-field-errors>
     </span>
-
-    <p-button
-      class="mt-4"
-      (onClick)="onSubmit()"
-      [label]="'ATTRIBUTE.EDIT.BUTTONS.SUBMIT' | translate"
-      [disabled]="editAttributeForm.invalid"
-    >
-    </p-button>
+    <span class="mt-4 flex flex-row gap-3">
+      <p-button
+        (onClick)="onCancel()"
+        [label]="'ATTRIBUTE.EDIT.BUTTONS.CANCEL' | translate"
+      ></p-button>
+      <p-button
+        (onClick)="onSubmit()"
+        [label]="'ATTRIBUTE.EDIT.BUTTONS.SUBMIT' | translate"
+        [disabled]="editAttributeForm.invalid"
+      >
+      </p-button>
+    </span>
   </form>
 </p-card>

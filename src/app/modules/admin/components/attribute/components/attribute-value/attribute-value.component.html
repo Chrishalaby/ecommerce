@@ -13,20 +13,25 @@
       }}"
       [showClear]="true"
     ></p-dropdown> -->
-    <p>{{ attributeItem.name }}</p>
+    <!-- <p>{{ attributeItem.name }}</p> -->
     <!-- </div> -->
     <div formArrayName="values">
       <div
-        *ngFor="let valueCtrl of valuesFormArray.controls; let i = index"
+        *ngFor="let valueGroup of valuesFormArray.controls; let i = index"
+        [formGroupName]="i"
         class="form-group"
       >
-        <input type="text" pInputText [formControlName]="i" />
+        <!-- Adjusted to bind to the `value` property within each FormGroup -->
+        <input type="text" pInputText formControlName="value" />
         <p-button type="button" (click)="removeValueControl(i)"
           >Remove</p-button
         >
       </div>
-      <p-button type="button" (click)="addValueControl()">Add Value</p-button>
+      <p-button type="button" (click)="addValueControl({ id: 0, value: '' })"
+        >Add Value</p-button
+      >
     </div>
+
     <p-button type="submit">Submit</p-button>
   </form>
 </p-card>

@@ -5,7 +5,6 @@ export interface PostAttributeProps {
 }
 
 export interface PatchAttributeProps {
-  id: number;
   attributeUpdate: Partial<Attribute>;
 }
 

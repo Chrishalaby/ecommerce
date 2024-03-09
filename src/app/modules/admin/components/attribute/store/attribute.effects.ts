@@ -67,10 +67,7 @@ export class AttributeEffects {
     this.actions$.pipe(
       ofType(AttributeActions.patchAttribute),
       switchMap((action: PatchAttributeProps) =>
-        this.attributeRepository.updateAttribute(
-          action.id,
-          action.attributeUpdate
-        )
+        this.attributeRepository.updateAttribute(action.attributeUpdate)
       ),
       map(() => AttributeActions.patchAttributeSuccess())
     )
