@@ -135,7 +135,7 @@
           </span>
 
           <div
-            *ngFor="let attribute of getAttributes().controls; let i = index"
+            *ngFor="let attribute of getAttributes()?.controls; let i = index"
             [formGroupName]="i"
             class="p-3 grid"
           >
@@ -143,28 +143,31 @@
               class="col-12 md:col-11"
               [options]="attributeOptions"
               [formControlName]="fieldNames.Name"
+              [optionLabel]="fieldNames.Name"
               placeholder="{{
                 'NEW_PRODUCT.CREATE.SELECT_ATTRIBUTE' | translate
               }}"
+              (onChange)="onAttributeSelect($event.value, i)"
               [showClear]="true"
             ></p-dropdown>
             <p-button
               class="col-12 md:col-1"
               icon="pi pi-plus"
-              (click)="showAttributeDialog()"
+              [routerLink]="['../attributes/create']"
             ></p-button>
 
             <p-multiSelect
+              [options]="attributes.at(i).get('values')?.value"
               class="col-12 md:col-11"
-              [options]="getValuesOptions(i)"
               [formControlName]="fieldNames.Values"
               defaultLabel="{{ 'NEW_PRODUCT.CREATE.SELECT_VALUE' | translate }}"
               [showClear]="true"
             ></p-multiSelect>
             <p-button
               class="col-12 md:col-1"
-              (click)="showValueDialog(i)"
+              (click)="createValue(i)"
               icon="pi pi-plus"
+              [disabled]="!attribute.get(fieldNames.Name)?.value"
             ></p-button>
           </div>
         </div>
@@ -202,7 +205,7 @@
   </div>
 </div>
 
-<p-dialog
+<!-- <p-dialog
   header="{{ 'NEW_PRODUCT.NEW_VALUE.TITLE' | translate }}"
   [(visible)]="displayValueDialog"
   [modal]="true"
@@ -244,4 +247,4 @@
       (click)="addNewAttribute()"
     ></button>
   </p-footer>
-</p-dialog>
+</p-dialog> -->

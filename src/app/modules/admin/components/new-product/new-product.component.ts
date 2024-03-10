@@ -16,6 +16,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
@@ -27,7 +28,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
+import { AttributeRepository } from '../attribute/shared/attribute.repository';
 import { Attribute } from '../attribute/shared/models/attribute.model';
+import { AttributeFacade } from '../attribute/store/attribute.facade';
 import { ProductFacade } from './store/product.facade';
 
 @Component({
@@ -50,6 +53,7 @@ import { ProductFacade } from './store/product.facade';
     ReactiveFormsModule,
     DialogModule,
     MultiSelectModule,
+    RouterModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ProductFacade],
@@ -75,19 +79,15 @@ export class NewProductComponent implements OnInit {
   productForm!: FormGroup;
   attributeOptions: Attribute[] = [];
 
-  newAttribute: string = '';
-  newValue: string = '';
-  displayValueDialog: boolean = false;
-  currentAttributeIndex: number = -1;
-
-  displayAttributeDialog: boolean = false;
-
   constructor(
     private readonly fb: FormBuilder,
-    private readonly productFacade: ProductFacade
+    private readonly productFacade: ProductFacade,
+    private readonly attributeFacade: AttributeFacade,
+    private readonly attributeRepository: AttributeRepository
   ) {}
 
   ngOnInit(): void {
+    this.loadAttributeOptions();
     this.productForm = this.initializeForm();
   }
 
@@ -104,65 +104,38 @@ export class NewProductComponent implements OnInit {
     });
   }
 
-  addNewAttribute(): void {
-    if (
-      this.newAttribute &&
-      !this.attributeOptions.some((option) => option.name === this.newAttribute)
-    ) {
-      const attributeToAdd: Partial<Attribute> = {
-        name: this.newAttribute,
-      };
-
-      // this.attributeService.createAttribute(attributeToAdd).subscribe({
-      //   next: (response: any) => {
-      //     this.attributeOptions.push(response);
-      //     this.newAttribute = '';
-      //     this.displayAttributeDialog = false;
-      //   },
-      // });
-    }
+  loadAttributeOptions(): void {
+    this.attributeRepository.getAndPaginate({}).subscribe((data: any) => {
+      this.attributeOptions = data;
+      console.log(data);
+    });
   }
-
-  getValuesOptions(attributeIndex: number): any[] {
-    return this.getValues(attributeIndex).value.map((value: string) => ({
-      label: value,
-      value: value,
-    }));
-  }
-
-  getValues(attributeIndex: number): FormArray {
-    return this.getAttributes().at(attributeIndex).get('values') as FormArray;
-  }
-
   getAttributes(): FormArray {
     return this.productForm.get(FieldNames.Attributes) as FormArray;
   }
-
   addAttribute(): void {
     const attributeFormGroup = this.fb.group({
-      key: '',
-      values: this.fb.array([this.fb.control('')]),
+      name: '',
+      values: [[]],
     });
     this.getAttributes().push(attributeFormGroup);
   }
+  onAttributeSelect(attributeId: Attribute, index: number): void {
+    const values =
+      this.attributeOptions.find((attr) => attr.id === attributeId.id)
+        ?.values || [];
 
-  addNewValue(attributeIndex: number): void {
-    if (this.newValue) {
-      this.getValues(attributeIndex).push(this.fb.control(this.newValue));
-      this.newValue = '';
-    }
-    this.displayValueDialog = false;
+    console.log(values);
+    const attributeFormGroup = this.attributes.at(index);
+    attributeFormGroup.get('values')?.setValue(values.map((val) => val.value)); // Map to the 'value' field if needed
   }
 
-  showValueDialog(attributeIndex: number): void {
-    this.currentAttributeIndex = attributeIndex;
-    this.displayValueDialog = true;
+  get attributes(): FormArray {
+    return this.productForm.get('attributes') as FormArray;
   }
-
-  showAttributeDialog(): void {
-    this.displayAttributeDialog = true;
+  createValue(i: any): void {
+    console.log(i);
   }
-
   onUpload(event: any) {
     for (let file of event.files) {
       this.images.push(file);
