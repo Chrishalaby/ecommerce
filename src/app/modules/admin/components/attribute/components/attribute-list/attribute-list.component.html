@@ -1,113 +1,114 @@
-<p-table
-  [value]="attributes"
-  [customSort]="true"
-  (sortFunction)="customSort($event)"
-  dataKey="id"
->
-  <ng-template pTemplate="caption">
-    <div class="flex flex-row justify-content-between align-items-center">
-      <h1>{{ "ATTRIBUTE.LIST.TITLE" | translate }}</h1>
-      <p-button
-        [label]="'ATTRIBUTE.LIST.BUTTONS.CREATE' | translate"
-        icon="pi pi-plus"
-        styleClass="p-button-rounded"
-        [routerLink]="['./create']"
-      ></p-button>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="header">
-    <tr>
-      <th style="width: 5rem"></th>
-      <ng-container *ngFor="let col of attributeColumns">
-        <th>
-          {{ col.header }}
-          <!-- <p-sortIcon [field]="col.header"></p-sortIcon>
+<!-- [customSort]="true"
+(sortFunction)="customSort($event)" -->
+<section *ngIf="attributes | async as attributes">
+  <p-table [value]="attributes" dataKey="id">
+    <ng-template pTemplate="caption">
+      <div class="flex flex-row justify-content-between align-items-center">
+        <h1>{{ "ATTRIBUTE.LIST.TITLE" | translate }}</h1>
+        <p-button
+          [label]="'ATTRIBUTE.LIST.BUTTONS.CREATE' | translate"
+          icon="pi pi-plus"
+          styleClass="p-button-rounded"
+          [routerLink]="['./create']"
+        ></p-button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 5rem"></th>
+        <ng-container *ngFor="let col of attributeColumns">
+          <th>
+            {{ col.header }}
+            <!-- <p-sortIcon [field]="col.header"></p-sortIcon>
           <p-columnFilter
             type="text"
             [field]="col.header"
             display="menu"
           ></p-columnFilter> -->
-        </th>
-      </ng-container>
-      <th>{{ "ATTRIBUTE.LIST.ACTIONS" | translate }}</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-attribute let-expanded="expanded">
-    <tr>
-      <td>
-        <button
-          type="button"
-          pButton
-          pRipple
-          [pRowToggler]="attribute"
-          class="p-button-text p-button-rounded p-button-plain"
-          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-        ></button>
-      </td>
-      <ng-container *ngFor="let col of attributeColumns">
+          </th>
+        </ng-container>
+        <th>{{ "ATTRIBUTE.LIST.ACTIONS" | translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-attribute let-expanded="expanded">
+      <tr>
         <td>
-          {{ attribute[col.field] }}
+          <button
+            type="button"
+            pButton
+            pRipple
+            [pRowToggler]="attribute"
+            class="p-button-text p-button-rounded p-button-plain"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          ></button>
         </td>
-      </ng-container>
-      <td>
-        <p-button
-          icon="pi pi-pencil"
-          [rounded]="true"
-          [text]="true"
-          (onClick)="editAttribute(attribute)"
-        ></p-button>
-        <p-button
-          icon="pi pi-trash"
-          [rounded]="true"
-          [text]="true"
-          (onClick)="deleteAttribute(attribute)"
-        ></p-button>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="rowexpansion" let-attributeValues>
-    <tr>
-      <td colspan="7">
-        <div class="p-3">
-          <p-table [value]="attributeValues.values" dataKey="id">
-            <ng-template pTemplate="header">
-              <tr>
-                <ng-container *ngFor="let col of attributeValueColumns">
-                  <th>
-                    {{ col.header }}
-                  </th>
-                </ng-container>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-value>
-              <tr>
-                <ng-container *ngFor="let col of attributeValueColumns">
-                  <td>
-                    {{ value[col.field] }}
+        <ng-container *ngFor="let col of attributeColumns">
+          <td>
+            {{ attribute[col.field] }}
+          </td>
+        </ng-container>
+        <td>
+          <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            (onClick)="editAttribute(attribute)"
+          ></p-button>
+          <p-button
+            icon="pi pi-trash"
+            [rounded]="true"
+            [text]="true"
+            (onClick)="deleteAttribute(attribute)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-attributeValues>
+      <tr>
+        <td colspan="7">
+          <div class="p-3">
+            <p-table [value]="attributeValues.values" dataKey="id">
+              <ng-template pTemplate="header">
+                <tr>
+                  <ng-container *ngFor="let col of attributeValueColumns">
+                    <th>
+                      {{ col.header }}
+                    </th>
+                  </ng-container>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-value>
+                <tr>
+                  <ng-container *ngFor="let col of attributeValueColumns">
+                    <td>
+                      {{ value[col.field] }}
+                    </td>
+                  </ng-container>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="6">
+                    {{ "ATTRIBUTE.LIST.NO_DATA" | translate }}
                   </td>
-                </ng-container>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                <td colspan="6">{{ "ATTRIBUTE.LIST.NO_DATA" | translate }}</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="summary">
-    <p-paginator
-      (onPageChange)="onPageChange($event)"
-      [first]="0"
-      [rows]="tableForm.get(fieldNames.CountPerPage)?.value || 10"
-      [totalRecords]="tableForm.get(fieldNames.TotalRecords)?.value || 1"
-      [rowsPerPageOptions]="[10, 20, 30]"
-    ></p-paginator>
-  </ng-template>
-</p-table>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <p-paginator
+        (onPageChange)="onPageChange($event)"
+        [first]="0"
+        [rows]="tableForm.get(fieldNames.CountPerPage)?.value || 10"
+        [totalRecords]="tableForm.get(fieldNames.TotalRecords)?.value || 1"
+        [rowsPerPageOptions]="[10, 20, 30]"
+      ></p-paginator>
+    </ng-template>
+  </p-table>
+</section>
 
 <p-confirmDialog header="Confirmation" #cd>
   <ng-template pTemplate="footer">

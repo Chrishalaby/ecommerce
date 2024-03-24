@@ -30,7 +30,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { RippleModule } from 'primeng/ripple';
 import { AttributeRepository } from '../attribute/shared/attribute.repository';
 import { Attribute } from '../attribute/shared/models/attribute.model';
-import { AttributeFacade } from '../attribute/store/attribute.facade';
 import { ProductFacade } from './store/product.facade';
 
 @Component({
@@ -63,27 +62,14 @@ export class NewProductComponent implements OnInit {
 
   readonly fieldNames: typeof FieldNames = FieldNames;
 
-  // product: Product = {
-  //   name: '',
-  //   price: 0,
-  //   code: '',
-  //   sku: '',
-  //   inStock: true,
-  //   description: '',
-  //   images: [],
-  //   attributes: [],
-  // };
-
   images: any[] = [];
-
   productForm!: FormGroup;
   attributeOptions: Attribute[] = [];
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly productFacade: ProductFacade,
-    private readonly attributeFacade: AttributeFacade,
-    private readonly attributeRepository: AttributeRepository
+    private readonly attributeRepository: AttributeRepository,
+    private readonly productFacade: ProductFacade
   ) {}
 
   ngOnInit(): void {
@@ -99,16 +85,16 @@ export class NewProductComponent implements OnInit {
       [FieldNames.Sku]: [''],
       [FieldNames.InStock]: [true],
       [FieldNames.Description]: [''],
-      [FieldNames.Images]: this.fb.array([]),
       [FieldNames.Attributes]: this.fb.array([]),
     });
   }
 
   loadAttributeOptions(): void {
-    this.attributeRepository.getAndPaginate({}).subscribe((data: any) => {
-      this.attributeOptions = data;
-      console.log(data);
-    });
+    this.attributeRepository
+      .getAndPaginate({})
+      .subscribe((data: Attribute[]) => {
+        this.attributeOptions = data;
+      });
   }
   getAttributes(): FormArray {
     return this.productForm.get(FieldNames.Attributes) as FormArray;
@@ -125,17 +111,18 @@ export class NewProductComponent implements OnInit {
       this.attributeOptions.find((attr) => attr.id === attributeId.id)
         ?.values || [];
 
-    console.log(values);
     const attributeFormGroup = this.attributes.at(index);
-    attributeFormGroup.get('values')?.setValue(values.map((val) => val.value)); // Map to the 'value' field if needed
+    attributeFormGroup.get('values')?.setValue(values.map((val) => val.value));
   }
 
   get attributes(): FormArray {
     return this.productForm.get('attributes') as FormArray;
   }
+
   createValue(i: any): void {
     console.log(i);
   }
+
   onUpload(event: any) {
     for (let file of event.files) {
       this.images.push(file);
@@ -159,12 +146,16 @@ export class NewProductComponent implements OnInit {
   }
 
   removeImage(file: Image) {
-    this.images = this.images.filter((i) => i !== file);
+    this.images = this.images.filter((i) => i.name !== file.name);
   }
 
   onSubmit(): void {
-    console.log(this.productForm.value);
-    // this.productForm.get('images')?.setValue(this.images);
-    // this.productFacade.postProduct(this.productForm.value);
+    const formData = new FormData();
+    for (let i = 0; i < this.images.length; i++) {
+      formData.append('images', this.images[i]);
+    }
+    formData.append('product', JSON.stringify(this.productForm.value));
+
+    this.productFacade.postProduct(formData);
   }
 }

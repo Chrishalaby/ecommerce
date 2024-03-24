@@ -1,5 +1,7 @@
 import { AttributeEffects } from '@Modules/admin/components/attribute/store/attribute.effects';
 import { attributeFeature } from '@Modules/admin/components/attribute/store/attribute.reducer';
+import { ProductEffects } from '@Modules/admin/components/new-product/store/product.effects';
+import { productFeature } from '@Modules/admin/components/new-product/store/product.reducer';
 import { LoadedComponent } from '@Types/general.types';
 import { Routes } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
@@ -27,6 +29,10 @@ export const routes: Routes = [
       },
       {
         path: AdminRoutes.NewProduct,
+        providers: [
+          provideState(productFeature),
+          provideEffects([ProductEffects]),
+        ],
         loadComponent: () =>
           import(
             '@Modules/admin/components/new-product/new-product.component'
@@ -37,7 +43,7 @@ export const routes: Routes = [
         // canActivate: [AuthGuard],
         providers: [
           provideState(attributeFeature),
-          provideEffects([AttributeEffects]),
+          provideEffects(AttributeEffects),
         ],
         children: [
           {

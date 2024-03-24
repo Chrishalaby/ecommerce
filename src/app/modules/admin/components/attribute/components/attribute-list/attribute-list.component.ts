@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ConfirmationService, SortEvent } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
@@ -13,8 +13,9 @@ import { TableModule } from 'primeng/table';
 
 import { FieldNames } from '@Enums/fields.enum';
 import { AttributeRoutes, ModuleRoutes } from '@Enums/routes.enum';
-import { TableEventForm, TableValues } from '@Models/table.model';
-import { AttributeRepository } from '../../shared/attribute.repository';
+import { ListOptionsProps } from '@Models/list.model';
+import { TableEventForm } from '@Models/table.model';
+import { Observable } from 'rxjs';
 import {
   Attribute,
   AttributeListItem,
@@ -39,8 +40,7 @@ import { AttributeFacade } from '../../store/attribute.facade';
   providers: [DialogService, ConfirmationService],
 })
 export class AttributeListComponent implements OnInit {
-  attributes: Attribute[] = [];
-
+  attributes: Observable<Attribute[]> = this.attributeFacade.selectAttributes$;
   attributeColumns: any = [
     { field: 'id', header: 'ID' },
     { field: 'name', header: 'Name' },
@@ -57,7 +57,6 @@ export class AttributeListComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly confirmationService: ConfirmationService,
-    private readonly attributeRepository: AttributeRepository,
     private readonly attributeFacade: AttributeFacade,
     private readonly router: Router,
     private readonly translateService: TranslateService
@@ -69,19 +68,8 @@ export class AttributeListComponent implements OnInit {
   }
 
   getAndPaginate(): void {
-    const tableValues: TableValues = this.tableForm.value;
-    this.attributeRepository
-      .getAndPaginate(tableValues)
-      .subscribe((data: any) => {
-        this.attributes = data;
-        if (
-          this.tableForm.get(FieldNames.TotalRecords)?.value !== data.total ||
-          this.tableForm.get(FieldNames.PageCount)?.value !== data.pageCount
-        ) {
-          this.tableForm.get(FieldNames.TotalRecords)?.patchValue(data.total);
-          this.tableForm.get(FieldNames.PageCount)?.patchValue(data.pageCount);
-        }
-      });
+    const tableValues: ListOptionsProps = this.tableForm.value;
+    this.attributeFacade.getAttributes(tableValues);
   }
 
   onPageChange(event: PaginatorState): void {
@@ -92,22 +80,6 @@ export class AttributeListComponent implements OnInit {
 
     this.getAndPaginate();
   }
-
-  customSort(event: SortEvent): void {
-    const sortOrder = event.order === 1 ? 'ASC' : 'DESC';
-    const sortField = event.field?.toLowerCase() || 'id';
-
-    if (
-      this.tableForm.get(FieldNames.SortField)?.value !== sortField ||
-      this.tableForm.get(FieldNames.SortOrder)?.value !== sortOrder
-    ) {
-      this.tableForm.get(FieldNames.SortField)?.patchValue(sortField);
-      this.tableForm.get(FieldNames.SortOrder)?.patchValue(sortOrder);
-
-      this.getAndPaginate();
-    }
-  }
-
   createForm(): TableEventForm {
     const form: unknown = this.formBuilder.group({
       [FieldNames.CountPerPage]: 10,

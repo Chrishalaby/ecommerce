@@ -18,7 +18,7 @@ import {
   PatchProductProps,
   PostProductProps,
 } from '../shared/product-props.model';
-import { ProductRepository } from '../shared/status.repository';
+import { ProductRepository } from '../shared/product.repository';
 import { ProductActions } from './product.actions';
 
 @Injectable()

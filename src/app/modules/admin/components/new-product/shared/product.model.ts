@@ -8,7 +8,7 @@ export interface Product {
   price: number;
   stock: number;
   attributes: ProductAttribute[];
-  images: Blob;
+  images: any[];
 }
 
 interface ProductAttribute {

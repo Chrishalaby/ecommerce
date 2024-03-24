@@ -33,7 +33,7 @@ export class ProductFacade {
     this.store.dispatch(ProductActions.getProduct({ id }));
   }
 
-  public postProduct(product: Product): void {
+  public postProduct(product: any): void {
     this.store.dispatch(ProductActions.postProduct({ product }));
   }
 
